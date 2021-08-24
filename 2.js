@@ -25,6 +25,17 @@ function trata(req, res) {
   res.send(`Olá ${req.params.professor}`);
 }
 
+//é possivel devolver a requisicao, pulando o restante daquela chain de middleware
+
+app.get("/a/:aula", (req, res, next) => {
+  console.log("nova requisição atendida, depois vem o next");
+  next("route");
+});
+
+app.get("/a/:aula", (req, res, next) => {
+  res.send(`informações sobre a aula: ${req.params.aula}`);
+});
+
 app.listen(porta, () => {
   console.log(`Servidor executado na porta ${porta}`);
 });
